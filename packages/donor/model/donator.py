@@ -1,6 +1,6 @@
 # encoding: utf-8
-
-
+import names
+from datetime import datetime
 class Table(object):
     def config_db(self,pkg):
         tbl =  pkg.table('donator',pkey='id',name_long='Donator',name_plural='Donators',caption_field='fullname')
@@ -40,3 +40,14 @@ class Table(object):
                                                                 where='$donator_id=#THIS.id'),
                                                                 dtype='I', name_long='Donations number')                                                        
         
+    def randomValues(self):
+        return dict(name=dict(default_value='batch_#P'), fiscal_code=False,
+                    city_id=dict(ask=False), birthplace_id=dict(ask=False),
+                    email=False, user_id=False)
+
+    def trigger_onInserting(self, record):
+        if record['name'].startswith('batch_'):
+            record['name'] = names.get_first_name()
+            record['surname'] = names.get_last_name()
+            record['email'] = '{name}.{surname}@gmail.com'.format(name=record['name'].lower(), 
+                                                                    surname=record['surname'].lower())

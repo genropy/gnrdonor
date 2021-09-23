@@ -17,3 +17,6 @@ class Table(object):
     def counter_reference_num(self,record=None):
         #2021/000001
         return dict(format='$K$YYYY/$NNNNNN', code='D', period='YYYY', date_field='date', showOnLoad=True)
+
+    def randomValues(self):
+        return dict(date = dict(sorted=True))
