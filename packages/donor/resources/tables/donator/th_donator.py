@@ -41,6 +41,7 @@ class Form(BaseComponent):
     def th_form(self, form):
         bc = form.center.borderContainer()
         fb = bc.contentPane(region='top', height='50%', datapath='.record').formbuilder(cols=2, border_spacing='4px')
+        fb.field('user_id' )
         fb.field('name' )
         fb.field('surname' )
         fb.field('birthplace_id' )

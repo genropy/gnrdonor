@@ -5,6 +5,9 @@ class Table(object):
     def config_db(self,pkg):
         tbl =  pkg.table('donator',pkey='id',name_long='Donator',name_plural='Donators',caption_field='fullname')
         self.sysFields(tbl)
+
+        tbl.column('user_id',size='22', group='_', name_long='User'
+                    ).relation('adm.user.id', relation_name='donator', mode='foreignkey', onDelete='raise')
         tbl.column('name',name_long='Name')
         tbl.column('surname',name_long='Surname')
         tbl.column('birthplace_id',size='22',name_long='Birthplace').relation('glbl.comune.id',relation_name='donators_by_birthplace', mode='foreignkey', onDelete='raise')
@@ -22,7 +25,7 @@ class Table(object):
         tbl.column('department_id',size='22',name_long='Department').relation('department.id',relation_name='donators', mode='foreignkey', onDelete='raise')
         tbl.column('notes',name_long='Notes')
 
-        tbl.formulaColumn('fullname', "$surname||' '||$name", name_long='Fullname')
+        tbl.formulaColumn('fullname', "$surname ||' '||$name", name_long='Fullname')
         tbl.formulaColumn('first_donation_date', select=dict(table='donor.donation', columns='$date',
                                                                 where='$donator_id=#THIS.id',
                                                                 order_by='$date ASC', limit=1),

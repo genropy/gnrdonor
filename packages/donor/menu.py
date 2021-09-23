@@ -7,4 +7,5 @@ def config(root,application=None):
     donor.thpage('Donators',table='donor.donator')
     donor.thpage('Donations',table='donor.donation')
     donor.thpage('Departments',table='donor.department')
+    donor.thpage('Staff',table='donor.staff')
     donor.lookups('Lookup tables',lookup_manager='donor')
