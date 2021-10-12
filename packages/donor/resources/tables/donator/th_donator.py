@@ -40,24 +40,35 @@ class Form(BaseComponent):
 
     def th_form(self, form):
         bc = form.center.borderContainer()
-        fb = bc.contentPane(region='top', height='50%', datapath='.record').formbuilder(cols=2, border_spacing='4px')
+        top = bc.borderContainer(region='top', height='40%', datapath='.record', margin='10px')
+        fb = top.contentPane(region='left', width='900px').formbuilder(cols=3, border_spacing='4px')
         fb.field('user_id' )
         fb.field('name' )
         fb.field('surname' )
         fb.field('birthplace_id' )
-        fb.field('gender', tag='filteringSelect', values='M:Male,F:Female' )
         fb.field('birthdate' )
+        fb.field('gender', tag='filteringSelect', values='M:Male,F:Female' )
+        fb.field('job' )
         fb.field('telephone' )
         fb.field('email' )
-        fb.field('job' )
-        fb.field('journal_request' )
-        fb.field('news_request' )
         fb.field('address' )
         fb.field('city_id' )
         fb.field('fiscal_code' )
         fb.field('blood_group_code' )
         fb.field('department_id' )
-        fb.field('notes' )
+        fb.br()
+        fb.field('journal_request' )
+        fb.field('news_request' )
+        fb.br()
+        fb.simpleTextArea('^.notes', lbl='Notes', colspan=3, width='100%', height='20px')
+
+        right = top.contentPane(region='center')
+        right.img(src='^.photo', border='2px dotted silver',
+                    crop_width='150px',crop_height='150px',
+                    edit=True, 
+                    placeholder=True,
+                    upload_filename='=#FORM.record.id', 
+                    upload_folder='site:donators')
 
         tc = bc.tabContainer(region='center')
         tc.contentPane(title='Donations').dialogTableHandler(relation='@donations')

@@ -24,6 +24,7 @@ class Table(object):
         tbl.column('blood_group_code',size=':3',name_long='Blood Group').relation('donator_blood_group.code',relation_name='donators', mode='foreignkey', onDelete='raise')
         tbl.column('department_id',size='22',name_long='Department').relation('department.id',relation_name='donators', mode='foreignkey', onDelete='raise')
         tbl.column('notes',name_long='Notes')
+        tbl.column('photo', name_long='Photo', dtype='P')
 
         tbl.formulaColumn('fullname', "$surname ||' '||$name", name_long='Fullname')
         tbl.formulaColumn('first_donation_date', select=dict(table='donor.donation', columns='$date',
